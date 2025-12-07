@@ -117,6 +117,7 @@ return {
                 "scss",
                 "pug",
                 "typescriptreact",
+                "java",
             },
             init_options = {
                 includeLanguages = {},
@@ -143,6 +144,7 @@ return {
                 "scss",
                 "less",
                 "svelte",
+                "java",
             },
         })
         vim.lsp.enable("emmet_ls")

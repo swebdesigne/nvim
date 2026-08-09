@@ -44,6 +44,7 @@ return {
                     "java",
                     "rust",
                     "ron",
+                    "asm"
                 },
                 incremental_selection = {
                     enable = true,
@@ -66,7 +67,7 @@ return {
             -- Independent nvim-ts-autotag setup
             require("nvim-ts-autotag").setup({
                 opts = {
-                    enable_close = false,           -- Auto-close tags
+                    enable_close = true,           -- Auto-close tags
                     enable_rename = true,          -- Auto-rename pairs
                     enable_close_on_slash = false, -- Disable auto-close on trailing `</`
                 },
@@ -75,7 +76,7 @@ return {
                         enable_close = true, -- Disable auto-closing for HTML
                     },
                     ["typescriptreact"] = {
-                        enable_close = true, -- Explicitly enable auto-closing (optional, defaults to `true`)
+                        enable_close = false, -- Explicitly enable auto-closing (optional, defaults to `true`)
                     },
                      ["typescriptangular"] = {
                         enable_close = true, -- Explicitly enable auto-closing (optional, defaults to `true`)
@@ -83,5 +84,8 @@ return {
                 },
             })
         end,
+        dependencies = {
+         "nvim-treesitter/nvim-treesitter",
+        },
     },
 }

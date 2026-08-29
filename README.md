@@ -229,6 +229,35 @@
 | `MeanderingProgrammer/render-markdown.nvim` | Визуализация Markdown файлов |
 | `nvim-treesitter/nvim-treesitter` | Treesitter для Markdown |
 
+### Java Development 🐍
+| Компонент | Версия | Описание |
+|-----------|--------|----------|
+| **jdtls** | 1.54.0 | Java Language Server |
+| **lombok** | 1.18.46 | Поддержка Lombok аннотаций |
+| **java-test** | 0.43.2 | Тестирование Java кода |
+| **java-debug** | 0.58.3 | DAP отладчик |
+| **spring-boot-tools** | 1.55.1 | Поддержка Spring Boot |
+| **JDK** | 25 | Java Development Kit |
+
+**Доступные команды:**
+| Команда | Описание |
+|---------|----------|
+| `:JavaSettingsChangeRuntime` | Смена Java runtime |
+| `:JavaRunnerRunMain` | Запуск main класса |
+| `:JavaRunnerStopMain` | Остановка приложения |
+| `:JavaTestRunCurrentClass` | Запуск тестов класса |
+| `:JavaTestDebugCurrentClass` | Отладка тестов |
+| `:JavaTestRunAllTests` | Запуск всех тестов |
+| `:JavaDapConfig` | Настройка DAP |
+
+**Доп. горячие клавиши:**
+- `gd` — определение, `gD` — объявление, `gi` — реализация
+- `K` — документация (hover)
+- `<leader>rn` — переименовать символ
+- `<leader>D` — диагностика буфера
+
+**Подробнее:** [README-JAVA.md](./README-JAVA.md)
+
 ### Работа с комментариями TODO
 | Плагин | Назначение | Горячие клавиши |
 |--------|------------|-----------------|

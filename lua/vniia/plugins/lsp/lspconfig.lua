@@ -266,6 +266,7 @@ return {
             "astro",
             "tailwindcss",
             "marksman",
+            "clangd"
         })
     end,
 }

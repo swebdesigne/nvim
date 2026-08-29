@@ -1,0 +1,37 @@
+# Neovim
+# - buffers, swapfiles, history, sessions, marks
+.nvim*
+*.swp
+*.swo
+*~
+
+# Swap and temporary files
+.swap
+.tmp
+*.bak
+*.orig
+*.rej
+
+# Logs
+*.log
+logs/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-*
+
+# Qwen Code
+.qwen/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Data directories
+data/
+cache/
+
+# Test coverage
+coverage/
+.nyc_output/

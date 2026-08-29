@@ -36,8 +36,8 @@ return {
                 "angularls",
                 "astro",
                 "emmet_ls",
-                "emmet_language_server",
                 "marksman",
+                "clangd"
             },
         })
 
@@ -48,8 +48,8 @@ return {
                 "stylua",
                 "isort",
                 "pylint",
-                "clangd",
                 "denols",
+                "clangd"
             },
         })
     end,

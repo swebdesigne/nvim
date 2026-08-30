@@ -38,6 +38,7 @@ return {
 				"emmet_ls",
 				"marksman",
 				"clangd",
+				"sqlls",
 			},
 		})
 
@@ -50,6 +51,7 @@ return {
 				"pylint",
 				"denols",
 				"clangd",
+				"sqlls",
 			},
 		})
 	end,

@@ -276,6 +276,7 @@ return {
 			"tailwindcss",
 			"marksman",
 			"clangd",
+			"sqlls",
 		})
 	end,
 }

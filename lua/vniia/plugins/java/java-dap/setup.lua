@@ -1,6 +1,6 @@
-local adapters = require('java-dap.data-adapters')
-local class = require('java-core.utils.class')
-local JavaDebug = require('java-core.ls.clients.java-debug-client')
+local adapters = require("java-dap.data-adapters")
+local class = require("java-core.utils.class")
+local JavaDebug = require("java-core.ls.clients.java-debug-client")
 
 ---@class java-dap.Setup
 ---@field private client vim.lsp.Client
@@ -24,8 +24,8 @@ function Setup:get_dap_adapter()
 	local port = self.java_debug:start_debug_session()
 
 	return {
-		type = 'server',
-		host = '127.0.0.1',
+		type = "server",
+		host = "127.0.0.1",
 		port = port,
 		enrich_config = function(config, callback)
 			local updated_config = self:enrich_config(config)
@@ -45,7 +45,7 @@ function Setup:enrich_config(config)
 	-- chose its own main class, classpath, and java executable. Without this
 	-- short-circuit, the `assert(main, ...)` below fires because attach
 	-- configs (correctly) have no mainClass.
-	if config.request == 'attach' then
+	if config.request == "attach" then
 		return config
 	end
 
@@ -57,11 +57,11 @@ function Setup:enrich_config(config)
 	local main = config.mainClass
 	-- when we set it to empty string, it will create a project with some random
 	-- string as name
-	local project = config.projectName or ''
+	local project = config.projectName or ""
 
-	assert(main, 'To enrich the config, mainClass should already be present')
+	assert(main, "To enrich the config, mainClass should already be present")
 
-	if config.request == 'launch' then
+	if config.request == "launch" then
 		self.java_debug:build_workspace(main, project, nil, false)
 	end
 

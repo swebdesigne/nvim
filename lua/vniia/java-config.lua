@@ -1,7 +1,7 @@
 return {
 	checks = {
-		nvim_version = true,
-		nvim_jdtls_conflict = true,
+		nvim_version = false,
+		nvim_jdtls_conflict = false,
 	},
 
 	experimental = {

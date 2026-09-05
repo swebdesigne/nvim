@@ -19,37 +19,44 @@
 
 ### Управление проектом
 
-| Команда | Описание |
-|---------|----------|
-| `:JavaSettingsChangeRuntime` | Смена Java runtime в проекте |
+| Команда | Клавиши | Описание |
+|---------|---------|----------|
+| `:JavaSettingsChangeRuntime` | `<leader>jr` | Смена Java runtime в проекте |
 
 ### Запуск и отладка приложений
 
-| Команда | Описание |
-|---------|----------|
-| `:JavaRunnerRunMain` | Запуск основного класса (main method) |
-| `:JavaRunnerStopMain` | Остановка запущенного приложения |
-| `:JavaRunnerToggleLogs` | Переключение логов приложения |
+| Команда | Клавиши | Описание |
+|---------|---------|----------|
+| `:JavaRunnerRunMain` | `<leader>jm` | Запуск основного класса (main method) |
+| `:JavaRunnerStopMain` | `<leader>jM` | Остановка запущенного приложения |
+| `:JavaRunnerToggleLogs` | `<leader>jf` | Переключение логов приложения |
+
+### Тестирование (java-test)
+
+| Команда | Клавиши | Описание |
+|---------|---------|----------|
+| `:JavaTestRunCurrentClass` | `<leader>jt` | Запустить все тесты в текущем классе |
+| `:JavaTestDebugCurrentClass` | `<leader>jT` | Отладить все тесты в текущем классе |
 | `:JavaRunnerSwitchLogs` | Переключение между логами разных приложений |
 | `:JavaProfile` | Открыть UI профилирования |
 
 ### Тестирование (java-test)
 
-| Команда | Описание |
-|---------|----------|
-| `:JavaTestRunCurrentClass` | Запустить все тесты в текущем классе |
-| `:JavaTestDebugCurrentClass` | Отладить все тесты в текущем классе |
-| `:JavaTestRunCurrentMethod` | Запустить текущий тестовый метод |
-| `:JavaTestDebugCurrentMethod` | Отладить текущий тестовый метод |
-| `:JavaTestRunAllTests` | Запустить все тесты в проекте |
-| `:JavaTestDebugAllTests` | Отладить все тесты в проекте |
-| `:JavaTestViewLastReport` | Показать отчет последнего запуска тестов |
+| Команда | Клавиши | Описание |
+|---------|---------|----------|
+| `:JavaTestRunCurrentClass` | `<leader>jt` | Запустить все тесты в текущем классе |
+| `:JavaTestDebugCurrentClass` | `<leader>jT` | Отладить все тесты в текущем классе |
+| `:JavaTestRunCurrentMethod` | - | Запустить текущий тестовый метод |
+| `:JavaTestDebugCurrentMethod` | - | Отладить текущий тестовый метод |
+| `:JavaTestRunAllTests` | - | Запустить все тесты в проекте |
+| `:JavaTestDebugAllTests` | - | Отладить все тесты в проекте |
+| `:JavaTestViewLastReport` | - | Показать отчет последнего запуска тестов |
 
 ### Отладка (DAP)
 
-| Команда | Описание |
-|---------|----------|
-| `:JavaDapConfig` | Настроить DAP конфигурацию |
+| Команда | Клавиши | Описание |
+|---------|---------|----------|
+| `:JavaDapConfig` | `<leader>jd` | Настроить DAP конфигурацию |
 
 ## Автоматические команды (при открытии Java файла)
 

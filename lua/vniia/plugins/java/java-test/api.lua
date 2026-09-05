@@ -1,12 +1,12 @@
-local log = require('java-core.utils.log2')
-local notify = require('java-core.utils.notify')
-local test_adapters = require('java-test.adapters')
-local dap_adapters = require('java-dap.data-adapters')
-local buf_util = require('java-core.utils.buffer')
-local win_util = require('java.utils.window')
+local log = require("java-core.utils.log2")
+local notify = require("java-core.utils.notify")
+local test_adapters = require("java-test.adapters")
+local dap_adapters = require("java-dap.data-adapters")
+local buf_util = require("java-core.utils.buffer")
+local win_util = require("java.utils.window")
 
-local DebugClient = require('java-core.ls.clients.java-debug-client')
-local TestClient = require('java-core.ls.clients.java-test-client')
+local DebugClient = require("java-core.ls.clients.java-debug-client")
+local TestClient = require("java-core.ls.clients.java-test-client")
 
 ---@class java_test.TestApi
 ---@field private client java-core.JdtlsClient
@@ -37,7 +37,7 @@ end
 ---@param file_uri string uri of the class
 ---@return java-core.TestDetailsWithRange[] # list of test methods
 function M:get_test_methods(file_uri)
-	log.debug('finding test methods for uri: ' .. file_uri)
+	log.debug("finding test methods for uri: " .. file_uri)
 
 	local classes = self.test_client:find_test_types_and_methods(file_uri)
 	local methods = {}
@@ -50,7 +50,7 @@ function M:get_test_methods(file_uri)
 		end
 	end
 
-	log.debug('found ' .. #methods .. ' test methods')
+	log.debug("found " .. #methods .. " test methods")
 
 	return methods
 end
@@ -60,16 +60,16 @@ end
 ---@param report java-test.JUnitTestReport
 ---@param config? java-dap.DapLauncherConfigOverridable config to override the default values in test launcher config
 function M:run_class_by_buffer(buffer, report, config)
-	log.debug('running test class from buffer: ' .. buffer)
+	log.debug("running test class from buffer: " .. buffer)
 
 	local tests = self:get_test_class_by_buffer(buffer)
 
 	if #tests < 1 then
-		notify.warn('No tests found in the current buffer')
+		notify.warn("No tests found in the current buffer")
 		return
 	end
 
-	log.debug('found ' .. #tests .. ' test classes')
+	log.debug("found " .. #tests .. " test classes")
 
 	self:run_test(tests, report, config)
 end
@@ -79,7 +79,7 @@ end
 ---@param buffer integer
 ---@return java-core.TestDetailsWithChildrenAndRange # get test class details
 function M:get_test_class_by_buffer(buffer)
-	log.debug('finding test class by buffer')
+	log.debug("finding test class by buffer")
 
 	local uri = vim.uri_from_bufnr(buffer)
 	return self.test_client:find_test_types_and_methods(uri)
@@ -90,26 +90,27 @@ end
 ---@param report java-test.JUnitTestReport
 ---@param config? java-dap.DapLauncherConfigOverridable config to override the default values in test launcher config
 function M:run_test(tests, report, config)
-	log.debug('running ' .. #tests .. ' tests')
+	log.debug("running " .. #tests .. " tests")
 
-	local launch_args = self.test_client:resolve_junit_launch_arguments(test_adapters.tests_to_junit_launch_params(tests))
+	local launch_args =
+		self.test_client:resolve_junit_launch_arguments(test_adapters.tests_to_junit_launch_params(tests))
 
 	log.debug(
-		'resolved launch args - mainClass: ' .. launch_args.mainClass .. ', projectName: ' .. launch_args.projectName
+		"resolved launch args - mainClass: " .. launch_args.mainClass .. ", projectName: " .. launch_args.projectName
 	)
 
 	local java_exec = self.debug_client:resolve_java_executable(launch_args.mainClass, launch_args.projectName)
 
-	log.debug('java executable', java_exec)
+	log.debug("java executable", java_exec)
 
 	local dap_launcher_config = dap_adapters.junit_launch_args_to_dap_config(launch_args, java_exec, {
 		debug = true,
-		label = 'Launch All Java Tests',
+		label = "Launch All Java Tests",
 	})
 
-	dap_launcher_config = vim.tbl_deep_extend('force', dap_launcher_config, config or {})
+	dap_launcher_config = vim.tbl_deep_extend("force", dap_launcher_config, config or {})
 
-	log.debug('launching tests with config', dap_launcher_config)
+	log.debug("launching tests with config", dap_launcher_config)
 
 	self.runner:run_by_config(dap_launcher_config, report)
 end
@@ -118,7 +119,7 @@ end
 ---@param report java-test.JUnitTestReport
 ---@param config java-dap.DapLauncherConfigOverridable
 function M:execute_current_test_class(report, config)
-	log.debug('running the current class')
+	log.debug("running the current class")
 
 	return self:run_class_by_buffer(buf_util.get_curr_buf(), report, config)
 end
@@ -127,12 +128,12 @@ end
 ---@param report java-test.JUnitTestReport
 ---@param config java-dap.DapLauncherConfigOverridable
 function M:execute_current_test_method(report, config)
-	log.debug('running the current method')
+	log.debug("running the current method")
 
 	local method = self:find_current_test_method()
 
 	if not method then
-		notify.warn('cursor is not on a test method')
+		notify.warn("cursor is not on a test method")
 		return
 	end
 
@@ -142,14 +143,14 @@ end
 ---Find the test method at the current cursor position
 ---@return java-core.TestDetailsWithRange | nil
 function M:find_current_test_method()
-	log.debug('finding the current test method')
+	log.debug("finding the current test method")
 
 	local cursor = win_util.get_cursor()
 	local methods = self:get_test_methods(buf_util.get_curr_uri())
 
 	for _, method in ipairs(methods) do
 		local line_start = method.range.start.line
-		local line_end = method.range['end'].line
+		local line_end = method.range["end"].line
 
 		if cursor.line >= line_start and cursor.line <= line_end then
 			return method
@@ -161,12 +162,12 @@ end
 ---@param report java-test.JUnitTestReport
 ---@param config java-dap.DapLauncherConfigOverridable
 function M:execute_all_tests(report, config)
-	log.debug('running all tests')
+	log.debug("running all tests")
 
 	local projects = self.test_client:find_java_projects()
 
 	if #projects < 1 then
-		notify.warn('No Java projects found')
+		notify.warn("No Java projects found")
 		return
 	end
 
@@ -183,11 +184,11 @@ function M:execute_all_tests(report, config)
 	end
 
 	if #all_tests < 1 then
-		notify.warn('No tests found in workspace')
+		notify.warn("No tests found in workspace")
 		return
 	end
 
-	log.debug('found ' .. #all_tests .. ' test classes')
+	log.debug("found " .. #all_tests .. " test classes")
 	self:run_test(all_tests, report, config)
 end
 
